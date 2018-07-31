@@ -1,10 +1,12 @@
 {
   "name": "hissie",
-  "version": "3.0.0",
-  "description": "A Discord chat bot made for Ladysnake and otehr servers alike.",
+  "version": "1.0.0",
+  "description": "A Discord chat bot made for Ladysnake and other servers alike with various utilities.",
   "main": "hissie.js",
   "dependencies": {
-    "discord.js": "^11.3.2"
+    "discord.js": "^11.3.2",
+    "express": "^4.16.3",
+    "lodash": "^4.17.10"
   },
   "devDependencies": {},
   "scripts": {
