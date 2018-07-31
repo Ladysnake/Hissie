@@ -1,0 +1,23 @@
+{
+  "name": "hissie",
+  "version": "3.0.0",
+  "description": "A Discord chat bot made for Ladysnake and otehr servers alike.",
+  "main": "hissie.js",
+  "dependencies": {
+    "discord.js": "^11.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ladysnake/Hissie.git"
+  },
+  "author": "River Leviathan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ladysnake/Hissie/issues"
+  },
+  "homepage": "https://github.com/Ladysnake/Hissie#readme"
+}
