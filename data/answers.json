@@ -1,0 +1,34 @@
+[
+	{
+		"regex": ".*(hello|hey|hi|sup|salutations).*",
+		"states": ["called"],
+		"answers": [
+			"Hello!", "Hey!", "Hi!"
+		],
+		"action": "",
+		"result": ""
+	},
+	{
+		"regex": ".*th(anks|x|ank *you).*",
+		"states": ["helped"],
+		"answers": [
+			"No problem!", "You're welcome!", "Glad I could help!"
+		],
+		"action": "",
+		"result": ""
+	},
+	{
+		"regex": ".*(what|who) +(is|are) +.*\\?",
+		"states": ["called"],
+		"answers": [],
+		"action": "googleSearch",
+		"result": "helped"
+	},
+	{
+		"regex": ".*hug.*",
+		"states": ["called"],
+		"answers": ["https://imgur.com/1d6uU2C"],
+		"action": "",
+		"result": "helped"
+	}
+]
