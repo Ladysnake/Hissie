@@ -1,12 +1,12 @@
 // Libs
-const Discord = require('discord.js');
-const express = require('express');
-const lodash = require('lodash');
-const google = require('google');
+import Discord from "discord.js"
+import express from "express"
+import lodash from "lodash"
+import google from "google"
 
 // Utils
-const grabJson = require('./utils/grabJson');
-const Config = require('./utils/Config');
+import grabJson from "@js/utils/grabJson"
+import Config from "@js/utils/Config"
 
 // Creating the bot and config, then logging in
 const hissie = new Discord.Client();
