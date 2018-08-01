@@ -3,15 +3,17 @@
         ["env", {
             "modules": "umd",
             "targets": {
-                "node": "6.10"
+                "node": "6.11.5"
             }
         }]
     ],
     "plugins": [
         "transform-function-bind",
         "transform-class-properties",
-        "transform-object-rest-spread",
         "transform-do-expressions",
         "syntax-dynamic-import"
+    ],
+    "ignore": [
+        "node_modules"
     ]
 }

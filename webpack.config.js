@@ -24,7 +24,7 @@ const config = {
     plugins: [],
     module: {
         rules: [],
-        noParse: _ => libsRegex.test(_),
+        //noParse: _ => libsRegex.test(_),
     },
     mode: dev ? "development" : "production",
 };
@@ -41,8 +41,10 @@ config.target = "node";
 /****************************************************************\
  * Aliases
 \****************************************************************/
-config.resolve.alias["@js"] = resolvePath("src/");
-config.resolve.alias["@dist"] = resolvePath("dist/");
+config.resolve.alias["@js"] = resolvePath("./src/");
+config.resolve.alias["@dist"] = resolvePath("./dist/");
+config.resolve.alias["@modular"] = resolvePath("./src/modular/");
+config.resolve.alias["@modules"] = resolvePath("./src/modules/");
 
 config.resolve.extensions.push(".js");
 config.resolve.extensions.push(".json");
@@ -53,6 +55,7 @@ config.resolve.extensions.push(".json");
  * Entries
 \****************************************************************/
 config.entry["hissie"] = "@js/hissie.js";
+// config.entry["modulesTest"] = "@js/modules.exp.js";
 
 
 /****************************************************************\
@@ -68,7 +71,7 @@ config.output.filename = "[name].js";
 \****************************************************************/
 config.module.rules.push({
     test: /\.js$/,
-    //exclude: libsRegex,
+    exclude: libsRegex,
     use: [
         "babel-loader",
     ],
