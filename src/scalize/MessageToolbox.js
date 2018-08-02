@@ -27,7 +27,7 @@ const setUserStates = (...args) => {
 class MessageToolbox extends EventEmitter{
     constructor(bot){
         super();
-        assertInstanceOf(bot, DiscordClient, "The 'bot' used to instantiate a 'MessageHub' must be a 'Discord.Client'");
+        assertInstanceOf(bot, DiscordClient, "The 'bot' used to instantiate a 'MessageToolbox' must be a 'Discord.Client'");
         // this.bot = bot;
         // this.userStates = new Map();
         setBot(this, bot);
@@ -43,6 +43,14 @@ class MessageToolbox extends EventEmitter{
 
     getUserState(user){
         return getUserStates(this).get(user);
+    }
+
+    deleteUserState(user){
+        return getUserStates(this).delete(user);
+    }
+
+    hasUserState(user){
+        return getUserStates(this).has(user);
     }
 
     authorIsBot({ author }){
