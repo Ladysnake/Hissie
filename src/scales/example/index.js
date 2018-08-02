@@ -1,5 +1,5 @@
 export default {
-    install(hissie){
+    install(hissie, toolbox){
         console.log("Successfully installed example module \\o/ !");
     }
 }

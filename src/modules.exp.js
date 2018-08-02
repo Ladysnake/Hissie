@@ -1,7 +1,7 @@
 import { Client as DiscordClient } from "discord.js"
-import { loadAllModules } from "@modules"
+import { loadAllScales } from "@scales"
 
 const bot = new DiscordClient();
 console.log("> Before load");
-loadAllModules(bot);
+loadAllScales(bot);
 console.log("> After load");

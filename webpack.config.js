@@ -43,8 +43,8 @@ config.target = "node";
 \****************************************************************/
 config.resolve.alias["@js"] = resolvePath("./src/");
 config.resolve.alias["@dist"] = resolvePath("./dist/");
-config.resolve.alias["@modular"] = resolvePath("./src/modular/");
-config.resolve.alias["@modules"] = resolvePath("./src/modules/");
+config.resolve.alias["@scalize"] = resolvePath("./src/scalize/");
+config.resolve.alias["@scales"] = resolvePath("./src/scales/");
 
 config.resolve.extensions.push(".js");
 config.resolve.extensions.push(".json");
@@ -54,8 +54,8 @@ config.resolve.extensions.push(".json");
 /****************************************************************\
  * Entries
 \****************************************************************/
-config.entry["hissie"] = "@js/hissie.js";
-// config.entry["modulesTest"] = "@js/modules.exp.js";
+// config.entry["hissie"] = "@js/hissie.js";
+config.entry["modulesTest"] = "@js/modules.exp.js";
 
 
 /****************************************************************\
