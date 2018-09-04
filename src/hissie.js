@@ -12,7 +12,7 @@ import Config from "@js/utils/Config"
 const hissie = new Discord.Client();
 const config = new Config(grabJson('data/config.json'));
 const userStates = new Map();
-hissie.login(config.token);
+hissie.login(process.env.HissieToken);
 
 // When ready, setting up the rest needed
 hissie.on('ready', () => {
@@ -32,7 +32,7 @@ hissie.on('ready', () => {
 
     server.listen(process.env.PORT);
     setInterval(() => {
-        http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
+        http.get(`http://hissie.glitch.me/`);
     }, 200000);
 });
 
@@ -119,7 +119,8 @@ hissie.on('guildMemberUpdate', (oldMember, newMember) => {
 hissie.on('message', message => {
     // If not DM, and Hissie is not in DnD or the sender
     if (message.channel.type != 'dm' && hissie.user.presence.status != 'dnd' && message.author !== hissie.user) {
-        let called = answered = false;
+        let called = false;
+        let answered = false;
         let action = "";
         
         // If tagged or role she has is tagged, detects she's called

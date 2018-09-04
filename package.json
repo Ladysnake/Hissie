@@ -4,7 +4,7 @@
   "description": "A Discord chat bot made for Ladysnake and other servers alike with various utilities.",
   "main": "hissie.js",
   "dependencies": {
-    "discord.js": "^11.3.2",
+    "discord.js": "^11.4.2",
     "express": "^4.16.3",
     "google": "^2.1.0",
     "lodash": "^4.17.10"
@@ -20,7 +20,7 @@
     "babel-preset-env": "^1.7.0",
     "clean-webpack-plugin": "^0.1.19",
     "cross-env": "^5.2.0",
-    "webpack": "^4.16.0",
+    "webpack": "^4.17.2",
     "webpack-cli": "^2.1.5"
   },
   "scripts": {

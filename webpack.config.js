@@ -54,8 +54,8 @@ config.resolve.extensions.push(".json");
 /****************************************************************\
  * Entries
 \****************************************************************/
-// config.entry["hissie"] = "@js/hissie.js";
-config.entry["modulesTest"] = "@js/modules.exp.js";
+config.entry["hissie"] = "@js/hissie.js";
+// config.entry["modulesTest"] = "@js/modules.exp.js";
 
 
 /****************************************************************\
