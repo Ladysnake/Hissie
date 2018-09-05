@@ -1,12 +1,13 @@
 // Libs
-import Discord from "discord.js"
-import express from "express"
-import lodash from "lodash"
-import google from "google"
+import Discord from 'discord.js'
+import express from 'express'
+import lodash from 'lodash'
+import google from 'google'
+import http from 'http'
 
 // Utils
-import grabJson from "@js/utils/grabJson"
-import Config from "@js/utils/Config"
+import grabJson from '@js/utils/grabJson'
+import Config from '@js/utils/Config'
 
 // Creating the bot and config, then logging in
 const hissie = new Discord.Client();
@@ -26,13 +27,15 @@ hissie.on('ready', () => {
     const server = express();
 
     // Default route
-    server.get("/", (request, response) => {
+    server.get('/', (request, response) => {
         response.sendStatus(200);
     });
 
-    server.listen(process.env.PORT);
+    let port = process.env.PORT || 8080;
+    server.listen(port);
+    console.log(`Address: ${process.env.ADDRESS || 'http://localhost'}:${port}`)
     setInterval(() => {
-        http.get(`http://hissie.glitch.me/`);
+        http.get(process.env.ADDRESS || 'http://localhost:'+port);
     }, 200000);
 });
 
@@ -40,16 +43,16 @@ hissie.on('ready', () => {
 hissie.on('guildMemberAdd', member => {
     if (hissie.user.presence.status != 'dnd' && member.guild.id == config.ladysnakeGuildId) {
         const messages = ['Welcome' , 'Greetings', 'Salutations']; // yes this is hardcoded I know
-        member.guild.channels.find('id', config.ladysnakeGeneralId).send(messages[Math.floor(Math.random()*messages.length)]+' '+member.displayName+'! If you need anything, please ask.');
-        member.guild.channels.find('id', config.ladysnakeConsoleId).send({
-            "embed": {
-                "title": "Member server join",
-                "description": `${member.displayName} joined the server.`,
-                "author": {
-                    "name": member.displayName,
-                    "icon_url": member.user.displayAvatarURL
+        member.guild.channels.get(config.ladysnakeGeneralId).send(messages[Math.floor(Math.random()*messages.length)]+' '+member.displayName+'! If you need anything, please ask.');
+        member.guild.channels.get(config.ladysnakeConsoleId).send({
+            'embed': {
+                'title': 'Member server join',
+                'description': `${member.displayName} joined the server.`,
+                'author': {
+                    'name': member.displayName,
+                    'icon_url': member.user.displayAvatarURL
                 },
-                "color": member.displayColor != 0 ? member.displayColor : 0x4F545C
+                'color': member.displayColor != 0 ? member.displayColor : 0x4F545C
             }
         });
     }
@@ -58,15 +61,15 @@ hissie.on('guildMemberAdd', member => {
 // On user leaving the Ladysnake guild
 hissie.on('guildMemberRemove', member => {
     if (hissie.user.presence.status != 'dnd' && member.guild.id == config.ladysnakeGuildId)
-        member.guild.channels.find('id', config.ladysnakeConsoleId).send({
-            "embed": {
-                "title": "Member server leave",
-                "description": `${member.displayName} left the server.`,
-                "author": {
-                    "name": member.displayName,
-                    "icon_url": member.user.displayAvatarURL
+        member.guild.channels.get(config.ladysnakeConsoleId).send({
+            'embed': {
+                'title': 'Member server leave',
+                'description': `${member.displayName} left the server.`,
+                'author': {
+                    'name': member.displayName,
+                    'icon_url': member.user.displayAvatarURL
                 },
-                "color": member.displayColor != 0 ? member.displayColor : 0x4F545C
+                'color': member.displayColor != 0 ? member.displayColor : 0x4F545C
             }
         });
 });
@@ -76,15 +79,15 @@ hissie.on('guildMemberUpdate', (oldMember, newMember) => {
     if (hissie.user.presence.status != 'dnd' && newMember.guild.id == config.ladysnakeGuildId) {
         // Nickname change?
         if (oldMember.displayName !== newMember.displayName)
-            newMember.guild.channels.find('id', config.ladysnakeConsoleId).send({
-                "embed": {
-                    "title": "Member nickname change",
-                    "description": 'Before: ``'+oldMember.displayName+'``\nAfter: ``'+newMember.displayName+'``',
-                    "author": {
-                        "name": newMember.displayName,
-                        "icon_url": newMember.user.displayAvatarURL
+            newMember.guild.channels.get(config.ladysnakeConsoleId).send({
+                'embed': {
+                    'title': 'Member nickname change',
+                    'description': 'Before: ``'+oldMember.displayName+'``\nAfter: ``'+newMember.displayName+'``',
+                    'author': {
+                        'name': newMember.displayName,
+                        'icon_url': newMember.user.displayAvatarURL
                     },
-                    "color": newMember.displayColor != 0 ? newMember.displayColor : 0x4F545C
+                    'color': newMember.displayColor != 0 ? newMember.displayColor : 0x4F545C
                 }
             });
     
@@ -101,15 +104,15 @@ hissie.on('guildMemberUpdate', (oldMember, newMember) => {
             desc = 'Removed role: ``'+removedRoles[0].name+'``';
         }
         if (title !== '' && desc !== '')
-            newMember.guild.channels.find('id', config.ladysnakeConsoleId).send({
-                "embed": {
-                    "title": title,
-                    "description": desc,
-                    "author": {
-                        "name": newMember.displayName,
-                        "icon_url": newMember.user.displayAvatarURL
+            newMember.guild.channels.get(config.ladysnakeConsoleId).send({
+                'embed': {
+                    'title': title,
+                    'description': desc,
+                    'author': {
+                        'name': newMember.displayName,
+                        'icon_url': newMember.user.displayAvatarURL
                     },
-                    "color": newMember.displayColor != 0 ? newMember.displayColor : 0x4F545C
+                    'color': newMember.displayColor != 0 ? newMember.displayColor : 0x4F545C
                 }
             });
     }
@@ -121,34 +124,37 @@ hissie.on('message', message => {
     if (message.channel.type != 'dm' && hissie.user.presence.status != 'dnd' && message.author !== hissie.user) {
         let called = false;
         let answered = false;
-        let action = "";
+        let action = '';
         
         // If tagged or role she has is tagged, detects she's called
-        called = (message.mentions.members.exists('user', hissie.user) || message.mentions.roles.some(role => message.guild.members.find('id', hissie.user.id).roles.array().includes(role)))
+        called = (message.mentions.users.some(user => user.id === hissie.user.id) || message.mentions.roles.some(role => message.guild.members.get(hissie.user.id).roles.array().includes(role)))
 
         // If called, setting user called state
-        if (called) userStates.set(message.author, 'called');
+        if (called) userStates.set(message.author, {state: 'called', time: new Date()});
 
         grabJson('data/answers.json').some(answer => {
-            console.log(message.content)
-            console.log(answer.regex)
             if (new RegExp(answer.regex, 'i').test(message.content)) {
                 // If keyword correspondance and states are correct (including no state)
-                if (answer.states.includes(userStates.get(message.author)) || answer.states.length == 0) {
-                    // If answers exists, sending a random one
-                    if (answer.answers.length != 0) {
-                        message.channel.send(answer.answers[Math.floor(Math.random()*answer.answers.length)]);
-                        answered = true;
+                if (userStates.get(message.author)) {
+                    if (new Date() - userStates.get(message.author).time > 3600000) {
+                        userStates.delete(message.author);
+                        return false;
                     }
-                    // If action, executing it
-                    if (answer.action != '') {
-                        action = answer.action;
-                        answered = true;
+                    if (answer.states.includes(userStates.get(message.author).state) || answer.states.length == 0) {
+                        // If answers exists, sending a random one
+                        if (answer.answers.length != 0) {
+                            message.channel.send(answer.answers[Math.floor(Math.random()*answer.answers.length)]);
+                            answered = true;
+                        }
+                        // If action, executing it
+                        if (answer.action != '') {
+                            action = answer.action;
+                            answered = true;
+                        }
+                        // If resulting state, applying it
+                        if (answer.result != '') userStates.set(message.author, {state: answer.result, time: new Date()});
+                        else if (answered) userStates.delete(message.author);
                     }
-                    // If resulting state, applying it
-                    if (answer.result != '')
-                        userStates.set(message.author, answer.result);
-                    else if (answered) userStates.delete(message.author);
                 }
             }
             return answered;
@@ -157,7 +163,7 @@ hissie.on('message', message => {
         // Actions
         switch (action) {
             // Google search
-            case "googleSearch":
+            case 'googleSearch':
                 const messageWords = message.content.split(/(\b|\s)+/g).map(word => word.toLowerCase());
                 let inside;
                 let search = '';
@@ -188,7 +194,7 @@ hissie.on('message', message => {
         if (called && !answered) {
             const answers = ['Yes ?', 'Hmmm ?', 'What is it ?', 'What can I help you with ?', 'I\'m here !'];  // yes this is hardcoded too
             message.channel.send(answers[Math.floor(Math.random()*answers.length)]);
-            userStates.set(message.author, 'called');
+            userStates.set(message.author, {state: 'called', time: new Date()})
         }
     }
 });

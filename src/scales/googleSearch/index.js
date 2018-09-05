@@ -1,6 +1,6 @@
-import google from "google"
+import google from 'google'
 
-const states = ["called"];
+const states = ['called'];
 const re = /.*(what|who) +(is|are) +.*\?/i
 
 export default {
