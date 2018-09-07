@@ -179,14 +179,15 @@ hissie.on('message', message => {
                 if (search != '') {
                     google(search.trim(), (err, response) => {
                         if (err) console.error(err);
-                        if (response.links[0] != null && response.links[1] != null && response.links[2] != null) {
-                            if (response.links[0].link != null) message.channel.send(response.links[0].link);
-                            else if (response.links[1].link != null) message.channel.send(response.links[1].link);
-                            else if (response.links[2].link != null) message.channel.send(response.links[2].link);
+                        // Test every link, see if it exists and if it's sfw
+                        let safeReg = /.*(porn|hentai|xvideos).*/igm;
+                        for (var i = 0; i < 10; i++) {
+                            if (response.links[i] != null && !safeReg.test(response.links[i].title) && !safeReg.test(response.links[i].description)) {
+                                message.channel.send(response.links[i].link);
+                                return;
+                            }
                         }
                     });
-                } else {
-                    message.channel.send()
                 }
         }
 
