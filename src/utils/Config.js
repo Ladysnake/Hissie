@@ -1,4 +1,4 @@
-export default function Config(jsonData) {
+module.exports = function Config(jsonData) {
     this.token = jsonData.token;
     this.games = jsonData.games;
     this.ladysnakeGuildId = jsonData.ladysnakeGuildId;

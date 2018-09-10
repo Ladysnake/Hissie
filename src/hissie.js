@@ -1,13 +1,13 @@
 // Libs
-import Discord from 'discord.js'
-import express from 'express'
-import lodash from 'lodash'
-import google from 'google'
-import http from 'http'
+const Discord = require('discord.js');
+const express = require('express');
+const lodash = require('lodash');
+const google = require('google');
+const http = require('http');
 
 // Utils
-import grabJson from '@js/utils/grabJson'
-import Config from '@js/utils/Config'
+const grabJson = require('./utils/grabJson');
+const Config = require('./utils/Config');
 
 // Creating the bot and config, then logging in
 const hissie = new Discord.Client();
@@ -180,12 +180,16 @@ hissie.on('message', message => {
                     google(search.trim(), (err, response) => {
                         if (err) console.error(err);
                         // Test every link, see if it exists and if it's sfw
-                        let safeReg = /.*(porn|hentai|xvideos).*/igm;
-                        for (var i = 0; i < 10; i++) {
-                            if (response.links[i] != null && !safeReg.test(response.links[i].title) && !safeReg.test(response.links[i].description)) {
-                                message.channel.send(response.links[i].link);
-                                return;
+                        try {
+                            let safeReg = /.*(porn|hentai|xvideos|xhamster|doujin).*/igm;
+                            for (var i = 0; i < 10; i++) {
+                                if (response.links[i] != null && !safeReg.test(response.links[i].link) && !safeReg.test(response.links[i].title) && !safeReg.test(response.links[i].description)) {
+                                    message.channel.send(response.links[i].link);
+                                    return;
+                                }
                             }
+                        } catch (exception) {
+                            message.channel.send('Sorry, I couldn\'t find anything relevant, maybe try rewording?');
                         }
                     });
                 }

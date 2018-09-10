@@ -1,5 +1,12 @@
 [
 	{
+		"regex": ".*(what|who) +(is|are) +.*\\?",
+		"states": ["called"],
+		"answers": [],
+		"action": "googleSearch",
+		"result": "helped"
+	},
+	{
 		"regex": ".*(hello|hey|hi|sup|salutations).*",
 		"states": ["called"],
 		"answers": [
@@ -16,13 +23,6 @@
 		],
 		"action": "",
 		"result": ""
-	},
-	{
-		"regex": ".*(what|who) +(is|are) +.*\\?",
-		"states": ["called"],
-		"answers": [],
-		"action": "googleSearch",
-		"result": "helped"
 	},
 	{
 		"regex": ".*hug.*",

@@ -1,5 +1,5 @@
-import fs from "fs";
+const fs = require('fs');
 
-export default function grabJson(path) {
+module.exports = function grabJson(path) {
     return JSON.parse(fs.readFileSync(path));
 }
