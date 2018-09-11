@@ -4,9 +4,7 @@ const express = require('express');
 const lodash = require('lodash');
 const google = require('google');
 const http = require('http');
-const fs = require('fs');
-const Imgur = require('imgur');
-const Jimp = require("jimp");
+const request = require('request');
 
 // Utils
 const grabJson = require('./utils/grabJson');
@@ -187,7 +185,7 @@ hissie.on('message', message => {
                         // Test every link, see if it exists and if it's sfw
                         try {
                             let safeReg = /.*(porn|hentai|xvideos|xhamster|doujin).*/igm;
-                            for (var i = 0; i < 10; i++) {
+                            for (let i = 0; i < 10; i++) {
                                 if (response.links[i] != null && !safeReg.test(response.links[i].link) && !safeReg.test(response.links[i].title) && !safeReg.test(response.links[i].description)) {
                                     message.channel.send(response.links[i].link);
                                     return;
@@ -200,80 +198,29 @@ hissie.on('message', message => {
                 }
                 break;
 
-            // Hissiemotes
-            // Addition (attachment)
-            case 'hissiemoteAddAttachment':
-                var emoteName;
-                // Attachments
-                if (message.attachments.array()[0] != null) {
-                    url = message.attachments.array()[0].url.toString();
-                    if (message.attachments.array()[0].filename.match(/\.gif$/i)) {
-                        if (message.attachments.array()[0].height > 150) {
-                            message.channel.send('Sorry, but your gif is too tall and I can\t resize gifs myself. But you can use https://ezgif.com/resize (make it so the height is at most 150px).')
-                            break;
-                        }
-                    }
-                    emoteName = message.attachments.array()[0].filename.replace(/\.(png|jpg)$/i, '');
-                }
-                // Simple emote name
-                if (emoteName.match(/.*\..*/g)) {
-                    message.channel.send('Unsupported format or name.');
-                    return;
-                }
-                emotes = grabJson('data/hissiemotes.json');
-                // If emote exists, aborting
-                if (emotes[emoteName]) {
-                    message.channel.send("An emote of this name already exists.");
-                    return;
-                } else {
-                    Imgur.setCredentials(process.env.HissieImgurLogin, config.HissieImgurPassword, config.HissieImgurToken);
-                    Jimp.read(message.attachments.array()[0].url, (err, img) => {
-                        if (err) throw err;
-                        img.resize(Jimp.AUTO, 150).getBase64(Jimp.AUTO, (exception, base64) => {
-                            if (exception) throw exception
-                            Imgur.uploadBase64(base64.replace(/^data:.+base64,/i, '')).then(json => {
-                                console.log(json.data.link)
-                                emotes[emoteName] = json.data.link;
-                                console.log(emotes)
-                                fs.writeFile("data/hissiemotes.json", JSON.stringify(emotes, null, 4), 'utf8', err => {
-                                    if (err) {
-                                        return console.log(err);
-                                    }
-                                    console.log("The hissiemote file was saved!");
-                                });
-                                message.channel.send({
-                                    "embed": {
-                                        "title": "Hissiemote added",
-                                        "description": '``'+emoteName+'``',
-                                        "author": {
-                                            "name": message.author.username+'#'+message.author.discriminator,
-                                            "icon_url": message.author.displayAvatarURL
-                                        },
-                                        "color": message.member.displayColor != 0 ? message.member.displayColor : 0x4F545C,
-                                        "thumbnail": {
-                                            "url": json.data.link
-                                        }
-                                    }
-                                });
-                            })
-                            .catch(function (err) {
-                                console.error(err.message);
-                            });
-                        });
-                    });
-                }
-                break;
-            // Addition (link)
-            case 'hissiemoteAddLink':
-                message.channel.send('Adding hissiemote (link)');
-                break;
-            // Deletion
-            case 'hissiemoteDelete':
-                message.channel.send('Deleting hissiemote');
-                break;
-            // Renaming
-            case 'hissiemoteRename':
-                message.channel.send('Removing hissiemote');
+            // Hissiemote
+            case 'hissiemote':
+                // Request hissiemote list from the Ladysnake server
+                request('https://ladysnake.glitch.me/hissiemotes', (err, res, json) => {
+                    if (err) console.log('error:', err); // Print the error if one occurred
+
+                    const hissiemoteList = JSON.parse(json);
+                    const emote = message.content.replace(':', '').replace('!', '');
+                    const emb = new Discord.RichEmbed();
+                    const displayName = message.member.displayName;
+
+                    emb.setAuthor(displayName, message.author.avatarURL);
+                    if (message.member.displayColor != 0) emb.setColor(message.member.displayColor);
+                    if (message.guild.emojis.find('name', emote.trim())) {
+                        emb.setImage(message.guild.emojis.get('name', emote.trim()).url.toString());
+                        message.channel.send(emb);
+                        message.delete();
+                    } else if (hissiemoteList[emote]) {
+                        emb.setImage(hissiemoteList[emote]);
+                        message.channel.send(emb);
+                        message.delete();
+                    } else message.channel.send('No emote of that name.');
+                });
                 break;
         }
 

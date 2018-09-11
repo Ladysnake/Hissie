@@ -12,7 +12,8 @@
     "http": "0.0.0",
     "imgur": "^0.2.1",
     "jimp": "^0.4.0",
-    "lodash": "^4.17.10"
+    "lodash": "^4.17.10",
+    "request": "^2.88.0"
   },
   "scripts": {
     "start": "node src/hissie.js"
