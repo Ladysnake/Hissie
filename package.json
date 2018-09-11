@@ -5,9 +5,13 @@
   "main": "hissie.js",
   "dependencies": {
     "discord.js": "^11.4.2",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "fs": "0.0.1-security",
     "google": "^2.1.0",
     "http": "0.0.0",
+    "imgur": "^0.2.1",
+    "jimp": "^0.4.0",
     "lodash": "^4.17.10"
   },
   "scripts": {

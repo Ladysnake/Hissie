@@ -4,12 +4,16 @@ const express = require('express');
 const lodash = require('lodash');
 const google = require('google');
 const http = require('http');
+const fs = require('fs');
+const Imgur = require('imgur');
+const Jimp = require("jimp");
 
 // Utils
 const grabJson = require('./utils/grabJson');
 const Config = require('./utils/Config');
 
 // Creating the bot and config, then logging in
+require('dotenv').load();
 const hissie = new Discord.Client();
 const config = new Config(grabJson('data/config.json'));
 const userStates = new Map();
@@ -130,6 +134,7 @@ hissie.on('message', message => {
         called = (message.mentions.users.some(user => user.id === hissie.user.id) || message.mentions.roles.some(role => message.guild.members.get(hissie.user.id).roles.array().includes(role)))
 
         // If called, setting user called state
+        if (message.member.permissions.has("ADMINISTRATOR")) userStates.set(message.author, {state: 'admin', time: new Date()});
         if (called) userStates.set(message.author, {state: 'called', time: new Date()});
 
         grabJson('data/answers.json').some(answer => {
@@ -193,6 +198,83 @@ hissie.on('message', message => {
                         }
                     });
                 }
+                break;
+
+            // Hissiemotes
+            // Addition (attachment)
+            case 'hissiemoteAddAttachment':
+                var emoteName;
+                // Attachments
+                if (message.attachments.array()[0] != null) {
+                    url = message.attachments.array()[0].url.toString();
+                    if (message.attachments.array()[0].filename.match(/\.gif$/i)) {
+                        if (message.attachments.array()[0].height > 150) {
+                            message.channel.send('Sorry, but your gif is too tall and I can\t resize gifs myself. But you can use https://ezgif.com/resize (make it so the height is at most 150px).')
+                            break;
+                        }
+                    }
+                    emoteName = message.attachments.array()[0].filename.replace(/\.(png|jpg)$/i, '');
+                }
+                // Simple emote name
+                if (emoteName.match(/.*\..*/g)) {
+                    message.channel.send('Unsupported format or name.');
+                    return;
+                }
+                emotes = grabJson('data/hissiemotes.json');
+                // If emote exists, aborting
+                if (emotes[emoteName]) {
+                    message.channel.send("An emote of this name already exists.");
+                    return;
+                } else {
+                    Imgur.setCredentials(process.env.HissieImgurLogin, config.HissieImgurPassword, config.HissieImgurToken);
+                    Jimp.read(message.attachments.array()[0].url, (err, img) => {
+                        if (err) throw err;
+                        img.resize(Jimp.AUTO, 150).getBase64(Jimp.AUTO, (exception, base64) => {
+                            if (exception) throw exception
+                            Imgur.uploadBase64(base64.replace(/^data:.+base64,/i, '')).then(json => {
+                                console.log(json.data.link)
+                                emotes[emoteName] = json.data.link;
+                                console.log(emotes)
+                                fs.writeFile("data/hissiemotes.json", JSON.stringify(emotes, null, 4), 'utf8', err => {
+                                    if (err) {
+                                        return console.log(err);
+                                    }
+                                    console.log("The hissiemote file was saved!");
+                                });
+                                message.channel.send({
+                                    "embed": {
+                                        "title": "Hissiemote added",
+                                        "description": '``'+emoteName+'``',
+                                        "author": {
+                                            "name": message.author.username+'#'+message.author.discriminator,
+                                            "icon_url": message.author.displayAvatarURL
+                                        },
+                                        "color": message.member.displayColor != 0 ? message.member.displayColor : 0x4F545C,
+                                        "thumbnail": {
+                                            "url": json.data.link
+                                        }
+                                    }
+                                });
+                            })
+                            .catch(function (err) {
+                                console.error(err.message);
+                            });
+                        });
+                    });
+                }
+                break;
+            // Addition (link)
+            case 'hissiemoteAddLink':
+                message.channel.send('Adding hissiemote (link)');
+                break;
+            // Deletion
+            case 'hissiemoteDelete':
+                message.channel.send('Deleting hissiemote');
+                break;
+            // Renaming
+            case 'hissiemoteRename':
+                message.channel.send('Removing hissiemote');
+                break;
         }
 
         // If called on the channel but didn't answer, acknowledge

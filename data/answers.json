@@ -7,6 +7,34 @@
 		"result": "helped"
 	},
 	{
+		"regex": "^hissiemote add$",
+		"states": ["admin"],
+		"answers": [],
+		"action": "hissiemoteAddAttachment",
+		"result": ""
+	},
+	{
+		"regex": "^hissiemote add [a-zA-Z0-9_]+.*$",
+		"states": ["admin"],
+		"answers": [],
+		"action": "hissiemoteAddLink",
+		"result": ""
+	},
+	{
+		"regex": "^hissiemote delete [a-zA-Z0-9_]+$",
+		"states": ["admin"],
+		"answers": [],
+		"action": "hissiemoteDelete",
+		"result": ""
+	},
+	{
+		"regex": "^hissiemote rename [a-zA-Z0-9_]+ [a-zA-Z0-9_]+$",
+		"states": ["admin"],
+		"answers": [],
+		"action": "hissiemoteRename",
+		"result": ""
+	},
+	{
 		"regex": ".*(hello|hey|hi|sup|salutations).*",
 		"states": ["called"],
 		"answers": [
