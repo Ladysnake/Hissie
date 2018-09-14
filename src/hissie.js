@@ -212,7 +212,7 @@ hissie.on('message', message => {
                     emb.setAuthor(displayName, message.author.avatarURL);
                     if (message.member.displayColor != 0) emb.setColor(message.member.displayColor);
                     if (message.guild.emojis.find('name', emote.trim())) {
-                        emb.setImage(message.guild.emojis.get('name', emote.trim()).url.toString());
+                        emb.setImage(message.guild.emojis.find('name', emote.trim()).url.toString());
                         message.channel.send(emb);
                         message.delete();
                     } else if (hissiemoteList[emote]) {
