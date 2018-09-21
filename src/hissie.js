@@ -5,9 +5,10 @@ const lodash = require('lodash');
 const google = require('google');
 const http = require('http');
 const request = require('request');
+const ytdl = require('ytdl-core');
 
 // Utils
-const grabJson = require('./utils/grabJson');
+const {grabJson, playAudio} = require('./utils');
 const Config = require('./utils/Config');
 
 // Creating the bot and config, then logging in
@@ -132,7 +133,6 @@ hissie.on('message', message => {
         called = (message.mentions.users.some(user => user.id === hissie.user.id) || message.mentions.roles.some(role => message.guild.members.get(hissie.user.id).roles.array().includes(role)))
 
         // If called, setting user called state
-        if (message.member.permissions.has("ADMINISTRATOR")) userStates.set(message.author, {state: 'admin', time: new Date()});
         if (called) userStates.set(message.author, {state: 'called', time: new Date()});
 
         grabJson('data/answers.json').some(answer => {
@@ -186,7 +186,7 @@ hissie.on('message', message => {
                         try {
                             let safeReg = /.*(porn|hentai|xvideos|xhamster|doujin).*/igm;
                             for (let i = 0; i < 10; i++) {
-                                if (response.links[i] != null && !safeReg.test(response.links[i].link) && !safeReg.test(response.links[i].title) && !safeReg.test(response.links[i].description)) {
+                                if (response.links[i] != null && response.links[i].link != null && !safeReg.test(response.links[i].link) && !safeReg.test(response.links[i].title) && !safeReg.test(response.links[i].description)) {
                                     message.channel.send(response.links[i].link);
                                     return;
                                 }
@@ -222,6 +222,38 @@ hissie.on('message', message => {
                     } else message.channel.send('No emote of that name.');
                 });
                 break;
+
+            // Play audio
+            case 'playAudio':
+                let url;
+            
+                // If youtube link
+                if (message.content.match(/ https:\/\/youtube.com\/watch/gmi)) {
+                    url = message.content.replace(/.*play /gmi, '');
+                    message.channel.send('Playing that right now!');
+                    playAudio(message, url);
+                } else {
+                    google(message.content.replace(/.*play /gmi, '').trim() + ' youtube', (err, response) => {
+                        if (err) console.error(err);
+                        // Test every link, see if it exists and if it's sfw
+                        try {
+                            for (let i = 0; i < 10; i++) {
+                                if (response.links[i].link != null) {
+                                    url = response.links[i].link;
+                                    message.channel.send('Playing '+url+' right now!');
+                                    playAudio(message, url);
+                                    break;
+                                }
+                            }
+                        } catch (exception) {
+                            message.channel.send('Sorry, I couldn\'t find anything relevant, maybe try rewording?');
+                            return;
+                        }
+                    });
+                }
+            
+                
+
         }
 
         // If called on the channel but didn't answer, acknowledge
