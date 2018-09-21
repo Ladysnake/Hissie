@@ -1,5 +1,12 @@
 [
 	{
+		"regex": ".*play .+",
+		"states": ["called"],
+		"answers": [],
+		"action": "playAudio",
+		"result": "helped"
+	},
+	{
 		"regex": ".*(what|who) +(is|are) +.*\\?",
 		"states": ["called"],
 		"answers": [],
