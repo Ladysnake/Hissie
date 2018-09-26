@@ -21,6 +21,13 @@
 		"result": ""
 	},
 	{
+		"regex": ".*hissiemote.* +list +.*",
+		"states": ["called"],
+		"answers": ["https://ladysnake.glitch.me/hissiemotes"],
+		"action": "",
+		"result": "helped"
+	},
+	{
 		"regex": ".*(hello|hey|hi|sup|salutations).*",
 		"states": ["called"],
 		"answers": [
