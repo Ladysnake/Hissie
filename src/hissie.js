@@ -134,30 +134,30 @@ hissie.on('message', message => {
 
         // If called, setting user called state
         if (called) userStates.set(message.author, {state: 'called', time: new Date()});
-
         grabJson('data/answers.json').some(answer => {
             if (new RegExp(answer.regex, 'i').test(message.content)) {
                 // If keyword correspondance and states are correct (including no state)
+                let userState = '';
                 if (userStates.get(message.author)) {
                     if (new Date() - userStates.get(message.author).time > 3600000) {
                         userStates.delete(message.author);
                         return false;
+                    } else userState = userStates.get(message.author).state;
+                }
+                if (answer.states.includes(userState) || answer.states.length == 0) {
+                    // If answers exists, sending a random one
+                    if (answer.answers.length != 0) {
+                        message.channel.send(answer.answers[Math.floor(Math.random()*answer.answers.length)]);
+                        answered = true;
                     }
-                    if (answer.states.includes(userStates.get(message.author).state) || answer.states.length == 0) {
-                        // If answers exists, sending a random one
-                        if (answer.answers.length != 0) {
-                            message.channel.send(answer.answers[Math.floor(Math.random()*answer.answers.length)]);
-                            answered = true;
-                        }
-                        // If action, executing it
-                        if (answer.action != '') {
-                            action = answer.action;
-                            answered = true;
-                        }
-                        // If resulting state, applying it
-                        if (answer.result != '') userStates.set(message.author, {state: answer.result, time: new Date()});
-                        else if (answered) userStates.delete(message.author);
+                    // If action, executing it
+                    if (answer.action != '') {
+                        action = answer.action;
+                        answered = true;
                     }
+                    // If resulting state, applying it
+                    if (answer.result != '') userStates.set(message.author, {state: answer.result, time: new Date()});
+                    else if (answered) userStates.delete(message.author);
                 }
             }
             return answered;
@@ -185,6 +185,7 @@ hissie.on('message', message => {
                         // Test every link, see if it exists and if it's sfw
                         try {
                             let safeReg = /.*(porn|hentai|xvideos|xhamster|doujin).*/igm;
+                            let exceptionReg = /.*(earth|food).*/igm;
                             for (let i = 0; i < 10; i++) {
                                 if (response.links[i] != null && response.links[i].link != null && !safeReg.test(response.links[i].link) && !safeReg.test(response.links[i].title) && !safeReg.test(response.links[i].description)) {
                                     message.channel.send(response.links[i].link);
