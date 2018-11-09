@@ -252,9 +252,13 @@ hissie.on('message', message => {
                             }
                         });
                     }
-                } else {
-                    message.channel.send('You need to be in a voice channel first if you want me to play anything for you.');
-                }
+                } else message.channel.send('You need to be in a voice channel first if you want me to play anything for you 🎵');
+
+            // Stop playing audio
+            case 'stopAudio':
+                if (message.member.voiceChannel) {
+                    message.member.voiceChannel.leave()
+                } else message.channel.send('Can\'t leave a channel if I\'m not already in it 🤷‍♀');
 
         }
 
