@@ -229,7 +229,7 @@ hissie.on('message', message => {
                 let url;
             
                 // If youtube link
-                if (message.content.match(/ https:\/\/youtube.com\/watch/gmi)) {
+                if (message.content.match(/https:\/\/(www\.)?youtube\.com\/watch\?v/gmi)) {
                     url = message.content.replace(/.*play /gmi, '');
                     message.channel.send('Playing that right now!');
                     playAudio(message, url);

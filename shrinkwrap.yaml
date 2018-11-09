@@ -523,7 +523,6 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha1-cj599ugBrFYTETp+RFqbactjKBg=
-      tarball: 'http://registry.npmjs.org/combined-stream/-/combined-stream-1.0.6.tgz'
   /combined-stream/1.0.7:
     dependencies:
       delayed-stream: 1.0.0
@@ -760,7 +759,6 @@ packages:
       node: '>= 0.10.0'
     resolution:
       integrity: sha1-avilAjUNsyRuzEvs9rWjTSL37VM=
-      tarball: 'http://registry.npmjs.org/express/-/express-4.16.3.tgz'
   /extend/3.0.2:
     dev: false
     resolution:
@@ -923,7 +921,6 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-i1VoC7S+KDoLW/TqLjhYC+HZMg0=
-      tarball: 'http://registry.npmjs.org/http-errors/-/http-errors-1.6.3.tgz'
   /http-signature/1.2.0:
     dependencies:
       assert-plus: 1.0.0
@@ -1059,7 +1056,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-W/Rejkm6QYnhfUgnid/RW9FAt7Y=
-      tarball: 'http://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz'
   /lodash/4.17.11:
     dev: false
     resolution:
@@ -1142,7 +1138,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-hX/Kv8M5fSYluCKCYuhqp6ARsF0=
-      tarball: 'http://registry.npmjs.org/minimist/-/minimist-0.0.8.tgz'
   /mkdirp/0.5.1:
     dependencies:
       minimist: 0.0.8
@@ -1150,7 +1145,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
-      tarball: 'http://registry.npmjs.org/mkdirp/-/mkdirp-0.5.1.tgz'
   /ms/2.0.0:
     dev: false
     resolution:
@@ -1346,7 +1340,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-fPTFTvZI44EwhMY23SB54WbAgdk=
-      tarball: 'http://registry.npmjs.org/readable-stream/-/readable-stream-1.1.14.tgz'
   /ref-struct/1.1.0:
     dependencies:
       debug: 2.6.9
