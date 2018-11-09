@@ -226,34 +226,35 @@ hissie.on('message', message => {
 
             // Play audio
             case 'playAudio':
-                let url;
-            
-                // If youtube link
-                if (message.content.match(/https:\/\/(www\.)?youtube\.com\/watch\?v/gmi)) {
-                    url = message.content.replace(/.*play /gmi, '');
-                    message.channel.send('Playing that right now!');
-                    playAudio(message, url);
-                } else {
-                    google(message.content.replace(/.*play /gmi, '').trim() + ' youtube', (err, response) => {
-                        if (err) console.error(err);
-                        // Test every link, see if it exists and if it's sfw
-                        try {
-                            for (let i = 0; i < 10; i++) {
-                                if (response.links[i].link != null) {
-                                    url = response.links[i].link;
-                                    message.channel.send('Playing '+url+' right now!');
-                                    playAudio(message, url);
-                                    break;
-                                }
-                            }
-                        } catch (exception) {
-                            message.channel.send('Sorry, I couldn\'t find anything relevant, maybe try rewording?');
-                            return;
-                        }
-                    });
-                }
-            
+                if (message.member.voiceChannel) {
+                    let url;
                 
+                    // If youtube link
+                    if (message.content.match(/https:\/\/(www\.)?youtube\.com\/watch\?v/gmi)) {
+                        url = message.content.replace(/.*play /gmi, '');
+                        playAudio(message, url);
+                    } else {
+                        google(message.content.replace(/.*play /gmi, '').trim() + ' youtube', (err, response) => {
+                            if (err) console.error(err);
+                            // Test every link, see if it exists and if it's sfw
+                            try {
+                                for (let i = 0; i < 10; i++) {
+                                    if (response.links[i].link != null) {
+                                        url = response.links[i].link;
+                                        message.channel.send('Playing '+url+' right now!');
+                                        playAudio(message, url);
+                                        break;
+                                    }
+                                }
+                            } catch (exception) {
+                                message.channel.send('Sorry, I couldn\'t find anything relevant, maybe try rewording?');
+                                return;
+                            }
+                        });
+                    }
+                } else {
+                    message.channel.send('You need to be in a voice channel first if you want me to play anything for you.');
+                }
 
         }
 
