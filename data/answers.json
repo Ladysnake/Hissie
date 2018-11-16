@@ -7,6 +7,13 @@
 		"result": "helped"
 	},
 	{
+		"regex": ".*stop.*",
+		"states": ["called"],
+		"answers": [],
+		"action": "stopAudio",
+		"result": "helped"
+	},
+	{
 		"regex": ".*(what|who) +(is|are) +.*\\?",
 		"states": ["called"],
 		"answers": [],

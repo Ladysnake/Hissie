@@ -259,7 +259,7 @@ hissie.on('message', message => {
             case 'stopAudio':
                 if (message.member.voiceChannel) {
                     message.member.voiceChannel.leave()
-                } else message.channel.send('Can\'t leave a channel if I\'m not already in it 🤷‍');
+                } else message.channel.send('Can\'t stop playing if I\'m not 🤷‍');
                 break;
 
         }

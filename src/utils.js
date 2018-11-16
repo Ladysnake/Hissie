@@ -10,6 +10,7 @@ function playAudio(message, url) {
     if (!voiceChannel) {
         return message.channel.send('Please be in a voice channel first!');
     }
+    message.member.voiceChannel.leave()
     return voiceChannel.join()
         .then(connection => {
             const stream = ytdl(url, { filter: 'audioonly' });
