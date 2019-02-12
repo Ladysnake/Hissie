@@ -261,6 +261,21 @@ hissie.on('message', message => {
                     message.member.voiceChannel.leave()
                 } else message.channel.send('Can\'t stop playing if I\'m not 🤷‍');
                 break;
+            
+            // Get user profile picture
+            case 'getUserAvatar':
+                message.mentions.users.forEach(user => {
+                    hissie.fetchUser(user.id).then(myUser => {
+                        if (myUser.id != '425215396170432512') {
+                            const myMember = message.channel.guild.member(myUser);
+                            const emb = new Discord.RichEmbed();
+                            emb.setAuthor(myMember.displayName, myUser.avatarURL);
+                            if (myMember.displayColor != 0) emb.setColor(myMember.displayColor);
+                            emb.setImage(myUser.avatarURL);
+                            message.channel.send(emb);
+                        }
+                    });
+                });
 
         }
 

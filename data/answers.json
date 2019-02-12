@@ -58,5 +58,12 @@
 		"answers": ["https://imgur.com/1d6uU2C"],
 		"action": "",
 		"result": "helped"
+	},
+	{
+		"regex": ".*get.*avatar.*",
+		"states": ["called"],
+		"answers": [],
+		"action": "getUserAvatar",
+		"result": "helped"
 	}
 ]
