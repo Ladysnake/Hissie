@@ -21,4 +21,28 @@ function playAudio(message, url) {
         });
 }
 
-module.exports = {grabJson, playAudio}
+function randomNumber(min, max) {
+    return Math.floor(Math.random() * max) + min;
+}
+
+function numberToDieImg(n) {
+    switch (n) {
+        case 1:
+            return "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/samsung/161/die-face-1_2680.png";
+        case 2:
+            return "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/samsung/161/die-face-2_2681.png";
+        case 3:
+            return "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/samsung/161/die-face-3_2682.png";
+        case 4:
+            return "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/samsung/161/die-face-4_2683.png";
+        case 5:
+            return "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/samsung/161/die-face-5_2684.png";
+        case 6:
+            return "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/samsung/161/die-face-6_2685.png";
+    
+        default:
+            break;
+    }
+}
+
+module.exports = {grabJson, playAudio, randomNumber, numberToDieImg}

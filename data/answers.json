@@ -58,5 +58,11 @@
 		"answers": ["https://imgur.com/1d6uU2C"],
 		"action": "",
 		"result": "helped"
-	}
+	},
+	{
+		"regex": ".*roll +.*die.*",
+		"states": ["called"],
+		"answers": [],
+		"action": "rollDie",
+		"result": "helped"}
 ]

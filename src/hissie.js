@@ -8,7 +8,7 @@ const request = require('request');
 const ytdl = require('ytdl-core');
 
 // Utils
-const {grabJson, playAudio} = require('./utils');
+const {grabJson, playAudio, randomNumber, numberToDieImg} = require('./utils');
 const Config = require('./utils/Config');
 
 // Creating the bot and config, then logging in
@@ -262,13 +262,24 @@ hissie.on('message', message => {
                 } else message.channel.send('Can\'t stop playing if I\'m not 🤷‍');
                 break;
 
+            // Roll a die
+            case 'rollDie':
+                message.channel.send({
+                    'embed': {
+                        "image": {
+                            "url": numberToDieImg(randomNumber(1, 6))
+                        },
+                    }
+                });
+                break;
+
         }
 
         // If called on the channel but didn't answer, acknowledge
         if (called && !answered) {
             const answers = ['Yes ?', 'Hmmm ?', 'What is it ?', 'What can I help you with ?', 'I\'m here !'];  // yes this is hardcoded too
             message.channel.send(answers[Math.floor(Math.random()*answers.length)]);
-            userStates.set(message.author, {state: 'called', time: new Date()})
+            userStates.set(message.author, {state: 'called', time: new Date()});
         }
     }
 });
