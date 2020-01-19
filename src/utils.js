@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 const fs = require('fs');
 const ytdl = require('ytdl-core');
 
@@ -10,7 +12,7 @@ function playAudio(message, url) {
     if (!voiceChannel) {
         return message.channel.send('Please be in a voice channel first!');
     }
-    message.member.voiceChannel.leave()
+    message.member.voiceChannel.leave();
     return voiceChannel.join()
         .then(connection => {
             const stream = ytdl(url, { filter: 'audioonly' });
@@ -26,23 +28,24 @@ function randomNumber(min, max) {
 }
 
 function numberToDieImg(n) {
+    const repeating = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/samsung/161/die-face-";
     switch (n) {
         case 1:
-            return "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/samsung/161/die-face-1_2680.png";
+            return repeating + "1_2680.png";
         case 2:
-            return "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/samsung/161/die-face-2_2681.png";
+            return repeating + "2_2681.png";
         case 3:
-            return "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/samsung/161/die-face-3_2682.png";
+            return repeating + "3_2682.png";
         case 4:
-            return "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/samsung/161/die-face-4_2683.png";
+            return repeating + "4_2683.png";
         case 5:
-            return "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/samsung/161/die-face-5_2684.png";
+            return repeating + "5_2684.png";
         case 6:
-            return "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/samsung/161/die-face-6_2685.png";
+            return repeating + "6_2685.png";
     
         default:
             break;
     }
 }
 
-module.exports = {grabJson, playAudio, randomNumber, numberToDieImg}
+module.exports = {grabJson, playAudio, randomNumber, numberToDieImg};

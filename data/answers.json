@@ -30,7 +30,7 @@
 	{
 		"regex": ".*hissiemote.* +list +.*",
 		"states": ["called"],
-		"answers": ["https://ladysnake.glitch.me/hissiemotes"],
+		"answers": ["https://ladysnake.github.io/hissiemotes.json"],
 		"action": "",
 		"result": "helped"
 	},

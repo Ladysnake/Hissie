@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 // Libs
 const Discord = require('discord.js');
 const express = require('express');
@@ -36,7 +38,7 @@ hissie.on('ready', () => {
 
     let port = process.env.PORT || 8080;
     server.listen(port);
-    console.log(`Address: ${process.env.ADDRESS || 'http://localhost'}:${port}`)
+    console.log(`Address: ${process.env.ADDRESS || 'http://localhost'}:${port}`);
     setInterval(() => {
         http.get(process.env.ADDRESS || 'http://localhost:'+port);
     }, 200000);
@@ -130,7 +132,7 @@ hissie.on('message', message => {
         let action = '';
         
         // If tagged or role she has is tagged, detects she's called
-        called = (message.mentions.users.some(user => user.id === hissie.user.id) || message.mentions.roles.some(role => message.guild.members.get(hissie.user.id).roles.array().includes(role)))
+        called = (message.mentions.users.some(user => user.id === hissie.user.id) || message.mentions.roles.some(role => message.guild.members.get(hissie.user.id).roles.array().includes(role)));
 
         // If called, setting user called state
         if (called) userStates.set(message.author, {state: 'called', time: new Date()});
@@ -202,7 +204,7 @@ hissie.on('message', message => {
             // Hissiemote
             case 'hissiemote':
                 // Request hissiemote list from the Ladysnake server
-                request('https://ladysnake.glitch.me/hissiemotes', (err, res, json) => {
+                request('https://ladysnake.github.io/hissiemotes.json', (err, res, json) => {
                     if (err) console.log('error:', err); // Print the error if one occurred
 
                     const hissiemoteList = JSON.parse(json);
@@ -258,7 +260,7 @@ hissie.on('message', message => {
             // Stop playing audio
             case 'stopAudio':
                 if (message.member.voiceChannel) {
-                    message.member.voiceChannel.leave()
+                    message.member.voiceChannel.leave();
                 } else message.channel.send('Can\'t stop playing if I\'m not 🤷‍');
                 break;
 
