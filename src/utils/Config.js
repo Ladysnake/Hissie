@@ -4,4 +4,4 @@ module.exports = function Config(jsonData) {
     this.ladysnakeGuildId = jsonData.ladysnakeGuildId;
     this.ladysnakeGeneralId = jsonData.ladysnakeGeneralId;
     this.ladysnakeConsoleId = jsonData.ladysnakeConsoleId;
-}
+};
