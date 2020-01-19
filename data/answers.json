@@ -60,6 +60,12 @@
 		"result": "helped"
 	},
 	{
+		"regex": ".*get.*avatar.*",
+		"states": ["called"],
+		"answers": [],
+		"action": "getUserAvatar",
+		"result": "helped"
+	}
 		"regex": ".*roll +.*die.*",
 		"states": ["called"],
 		"answers": [],
