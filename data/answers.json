@@ -65,10 +65,12 @@
 		"answers": [],
 		"action": "getUserAvatar",
 		"result": "helped"
-	}
+	},
+	{
 		"regex": ".*roll +.*die.*",
 		"states": ["called"],
 		"answers": [],
 		"action": "rollDie",
-		"result": "helped"}
+		"result": "helped"
+	}
 ]

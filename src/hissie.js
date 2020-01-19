@@ -278,6 +278,7 @@ hissie.on('message', message => {
                         }
                     });
                 });
+                break;
 
             // Roll a die
             case 'rollDie':
