@@ -36,6 +36,24 @@ module.exports = class App{
 		return this;
 	}
 
+	/**
+	 * Add several scales to the list of scales
+	 * @param {Scale[]} scales 
+	 * @returns {App}
+	 */
+	addScales(scales){
+		this.scales.push(...scales);
+		return this;
+	}
+
+	/**
+	 * Add several simple scales to the list of scales
+	 * @param {Function} scaleClasses - The list of scale classes to instantiate and add
+	 */
+	addSimpleScales(scaleClasses){
+		return this.addScales(scaleClasses.map(scaleClass => new scaleClass()));
+	}
+
 	async run(){
 		const { client, scales } = this;
 		await client.login(token);

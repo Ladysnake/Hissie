@@ -3,9 +3,19 @@
  * @typedef {Promise<T>|T} PromiseOr<T>
  */
 
+const { grabJson } = require("../utils");
+const Config = require("../utils/Config");
+
 module.exports = class Scale{
 	static create(...args){
 		return new this(...args);
+	}
+
+	constructor(){
+		/**
+		 * @member {Config}
+		 */
+		this.config = new Config(grabJson("../../data/config.json"));
 	}
 
 	/**
@@ -21,7 +31,8 @@ module.exports = class Scale{
 	 * @param {import("discord.js").GuildMember} member 
 	 * @returns {PromiseOr<any>}
 	 */
-	onJoin(hissie, member){}
+	onJoin(hissie, member){
+	}
 
 	/**
 	 * Hook for the guildMemberRemove event
