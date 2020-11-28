@@ -11,7 +11,6 @@ module.exports = class HealthStatus extends Scale{
 
 		this.port = process.env.PORT || 8080;
 		const rawServer = this.server.listen(port);
-		process.on("beforeExit", rawServer.close());
 		
 
 		const addr = `${process.env.ADDRESS || 'http://localhost'}:${this.port}`;
@@ -21,5 +20,11 @@ module.exports = class HealthStatus extends Scale{
 		this.interval = setInterval(() => {
 			http.get(addr);
 		}, 200000);
+
+		
+		process.on("beforeExit", () => {
+			clearInterval(this.interval);
+			rawServer.close();
+		});
 	}
 };
