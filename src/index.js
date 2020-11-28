@@ -1,11 +1,11 @@
 require("dotenv").load();
 
-const App = require("./App");
+const Hissie = require("./Hissie");
 const { scales, simpleScales } = require("./scales");
 
 (async () => {
 	try{
-		await App.from(process.env.HissieToken)
+		await Hissie.from(process.env.HissieToken)
 		.addScales(scales)
 		.addSimpleScales(simpleScales)
 		.run();
