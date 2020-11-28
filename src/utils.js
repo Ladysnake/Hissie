@@ -2,9 +2,10 @@
 
 const fs = require('fs');
 const ytdl = require('ytdl-core');
+const { resolve } = require("path");
 
 function grabJson(path) {
-    return JSON.parse(fs.readFileSync(path));
+    return JSON.parse(fs.readFileSync(resolve(__dirname, `../${path}`)));
 }
 
 async function playAudio(message, url) {

@@ -15,7 +15,7 @@ module.exports = class Scale{
 		/**
 		 * @type {Config}
 		 */
-		this.config = new Config(grabJson("../../data/config.json"));
+		this.config = new Config(grabJson("data/config.json"));
 	}
 
 	/**

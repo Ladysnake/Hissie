@@ -19,6 +19,8 @@ const now = () => new Date();
 
 module.exports = class RichAnswers extends Scale{
 	constructor(){
+		super();
+		
 		this.userState = new Map();
 		this.answers = grabJson("data/answers.json");
 		this.genericAnswers = [
@@ -196,14 +198,14 @@ module.exports = class RichAnswers extends Scale{
 			emb.setColor(message.member.displayColor);
 
 		const emoji = message.guild.emojis.find("name", emote.trim());
-		const emote = hissiemoteList[emote];
+		const emoticon = hissiemoteList[emote];
 
 		if (!!emoji) {
 			emb.setImage(emoji.url);
 			await message.channel.send(emb);
 			message.delete();
-		} else if (!!emote) {
-			emb.setImage(emote);
+		} else if (!!emoticon) {
+			emb.setImage(emoticon);
 			await message.channel.send(emb);
 			message.delete();
 		} else

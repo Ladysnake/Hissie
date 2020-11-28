@@ -1,5 +1,7 @@
 const { Client } = require("discord.js");
 const Scale = require("./scales/Scale");
+const Config = require("./utils/Config");
+const { grabJson } = require("./utils");
 
 module.exports = class App{
 	/**
@@ -18,7 +20,7 @@ module.exports = class App{
 		/**
 		 * @type {Config}
 		 */
-		this.config = new Config(grabJson("../data/config.json"));
+		this.config = new Config(grabJson("data/config.json"));
 
 		/**
 		 * @type {Client}
@@ -29,6 +31,11 @@ module.exports = class App{
 		 * @type {Scale[]}
 		 */
 		this.scales = [];
+
+		/**
+		 * @type {string}
+		 */
+		this.token = token;
 
 		this.__ = {
 			self: this,
@@ -75,7 +82,7 @@ module.exports = class App{
 	}
 
 	async run(){
-		const { client, scales } = this;
+		const { client, scales, token } = this;
 		await client.login(token);
 
 		client.on("ready", async () => {

@@ -2,6 +2,8 @@ const Scale = require("./Scale");
 
 module.exports = class UserManagement extends Scale{
 	constructor(){
+		super();
+		
 		this.messages = [
 			"Welcome",
 			"Greetings",
