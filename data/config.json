@@ -1,7 +1,7 @@
 {
 	"games": [
 		"Requiem",
-        "Snake",
+		"Snake",
 		"XCOM 2",
 		"Super Yeet",
 		"with doctor4t",
@@ -10,5 +10,6 @@
 	],
 	"ladysnakeGuildId": "292744693803122688",
 	"ladysnakeGeneralId": "477579058369134593",
-	"ladysnakeConsoleId": "486516200311095308"
+	"ladysnakeConsoleId": "486516200311095308",
+	"hissieId": "425215396170432512"
 }

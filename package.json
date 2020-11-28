@@ -1,34 +1,36 @@
 {
-  "name": "hissie",
-  "version": "1.0.0",
-  "description": "A Discord chat bot made for Ladysnake and other servers alike with various utilities.",
-  "main": "hissie.js",
-  "dependencies": {
-    "discord.js": "^11.4.2",
-    "dotenv": "^6.0.0",
-    "express": "^4.16.3",
-    "fs": "0.0.1-security",
-    "google": "^2.1.0",
-    "http": "0.0.0",
-    "imgur": "^0.3.1",
-    "jimp": "^0.16.1",
-    "lodash": "^4.17.10",
-    "node-opus": "^0.3.0",
-    "opusscript": "^0.0.6",
-    "request": "^2.88.0",
-    "ytdl-core": "^0.25.2"
-  },
-  "scripts": {
-    "start": "node src/hissie.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Ladysnake/Hissie.git"
-  },
-  "author": "River Leviathan",
-  "license": "ARR",
-  "bugs": {
-    "url": "https://github.com/Ladysnake/Hissie/issues"
-  },
-  "homepage": "https://github.com/Ladysnake/Hissie#readme"
+	"name": "hissie",
+	"version": "1.0.0",
+	"description": "A Discord chat bot made for Ladysnake and other servers alike with various utilities.",
+	"main": "index.js",
+	"dependencies": {
+		"discord.js": "^11.4.2",
+		"dotenv": "^6.0.0",
+		"express": "^4.16.3",
+		"fs": "0.0.1-security",
+		"google": "^2.1.0",
+		"http": "0.0.0",
+		"imgur": "^0.3.1",
+		"jimp": "^0.16.1",
+		"lodash": "^4.17.10",
+		"node-opus": "^0.3.0",
+		"opusscript": "^0.0.6",
+		"request": "^2.88.0",
+		"request-promise-native": "^1.0.9",
+		"sequency": "^0.19.2",
+		"ytdl-core": "^0.25.2"
+	},
+	"scripts": {
+		"start": "node src/hissie.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Ladysnake/Hissie.git"
+	},
+	"author": "River Leviathan",
+	"license": "ARR",
+	"bugs": {
+		"url": "https://github.com/Ladysnake/Hissie/issues"
+	},
+	"homepage": "https://github.com/Ladysnake/Hissie#readme"
 }

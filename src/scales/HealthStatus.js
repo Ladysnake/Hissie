@@ -10,7 +10,10 @@ module.exports = class HealthStatus extends Scale{
 		this.server.get("/", (_, res) => res.sendStatus(200));
 
 		this.port = process.env.PORT || 8080;
-		this.server.listen(port);
+		const rawServer = this.server.listen(port);
+		process.on("beforeExit", rawServer.close());
+		
+
 		const addr = `${process.env.ADDRESS || 'http://localhost'}:${this.port}`;
 		console.log(`Address: ${addr}`);
 

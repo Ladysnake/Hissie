@@ -13,7 +13,7 @@ module.exports = class Scale{
 
 	constructor(){
 		/**
-		 * @member {Config}
+		 * @type {Config}
 		 */
 		this.config = new Config(grabJson("../../data/config.json"));
 	}

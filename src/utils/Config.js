@@ -3,5 +3,6 @@ module.exports = function Config(jsonData) {
     this.games = jsonData.games;
     this.ladysnakeGuildId = jsonData.ladysnakeGuildId;
     this.ladysnakeGeneralId = jsonData.ladysnakeGeneralId;
-    this.ladysnakeConsoleId = jsonData.ladysnakeConsoleId;
+	this.ladysnakeConsoleId = jsonData.ladysnakeConsoleId;
+	this.hissieId = jsonData.hissieId;
 };
