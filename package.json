@@ -17,7 +17,6 @@
 		"opusscript": "^0.0.6",
 		"request": "^2.88.0",
 		"request-promise-native": "^1.0.9",
-		"sequency": "^0.19.2",
 		"ytdl-core": "^0.25.2"
 	},
 	"scripts": {
