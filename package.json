@@ -1,6 +1,6 @@
 {
 	"name": "hissie",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"description": "A Discord chat bot made for Ladysnake and other servers alike with various utilities.",
 	"main": "src/index.js",
 	"dependencies": {

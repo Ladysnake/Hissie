@@ -10,18 +10,18 @@ module.exports = class HealthStatus extends Scale{
 		this.server.get("/", (_, res) => res.sendStatus(200));
 
 		this.port = process.env.PORT || 8080;
-		const rawServer = this.server.listen(port);
-		
+		const rawServer = this.server.listen(this.port);
+
 
 		const addr = `${process.env.ADDRESS || 'http://localhost'}:${this.port}`;
 		console.log(`Address: ${addr}`);
 
-		
+
 		this.interval = setInterval(() => {
 			http.get(addr);
 		}, 200000);
 
-		
+
 		process.on("beforeExit", () => {
 			clearInterval(this.interval);
 			rawServer.close();

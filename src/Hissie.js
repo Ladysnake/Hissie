@@ -39,10 +39,20 @@ module.exports = class Hissie{
 
 		this.__ = {
 			self: this,
+			/**
+			 * @param {import("discord.js").Client} hissie
+			 * @param {import("discord.js").GuildMember} member
+			 * @returns {boolean}
+			 */
 			shouldProcessMember(hissie, member){
 				return hissie.user.presence.status !== "dnd"
 					&& member.guild.id === this.self.config.ladysnakeGuildId;
 			},
+			/**
+			 * @param {import("discord.js").Client} hissie
+			 * @param {import("discord.js").Message} message
+			 * @returns {boolean}
+			 */
 			shouldProcessMessage(hissie, message){
 				const { channel, author } = message;
 				const { user } = hissie;
@@ -51,11 +61,20 @@ module.exports = class Hissie{
 					&& author.id !== user
 			},
 		};
+
+		process.on("beforeExit", this.onExit.bind(this));
+	}
+
+	/**
+	 * @param {number} code
+	 */
+	onExit(code){
+		this.client.destroy();
 	}
 
 	/**
 	 * Add the given scale to the list of scales
-	 * @param {Scale} scale 
+	 * @param {Scale} scale
 	 * @returns {Hissie}
 	 */
 	addScale(scale){
@@ -65,7 +84,7 @@ module.exports = class Hissie{
 
 	/**
 	 * Add several scales to the list of scales
-	 * @param {Scale[]} scales 
+	 * @param {Scale[]} scales
 	 * @returns {Hissie}
 	 */
 	addScales(scales){
@@ -83,7 +102,7 @@ module.exports = class Hissie{
 
 	async run(){
 		const { client, scales, token } = this;
-		await client.login(token);
+		// client.channels.find(c => c.name === "hissie-frenzy");
 
 		client.on("ready", async () => {
 			for(const scale of scales)
@@ -122,5 +141,8 @@ module.exports = class Hissie{
 				await scale.onMessage(client, message);
 			}
 		});
+
+
+		await client.login(token);
 	}
 }

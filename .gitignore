@@ -1,3 +1,7 @@
+.vscode/
+idea/
+
+
 dist/*
 !dist/.gitkeep
 

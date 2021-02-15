@@ -27,7 +27,7 @@ hissie.on('message', message => {
         let called = false;
         let answered = false;
         let action = '';
-        
+
         // If tagged or role she has is tagged, detects she's called
         called = (message.mentions.users.some(user => user.id === hissie.user.id) || message.mentions.roles.some(role => message.guild.members.get(hissie.user.id).roles.array().includes(role)));
 
@@ -69,14 +69,14 @@ hissie.on('message', message => {
                 const messageWords = message.content.split(/(\b|\s)+/g).map(word => word.toLowerCase());
                 let inside;
                 let search = '';
-            
+
                 // Takes the keywords to search
                 messageWords.forEach(e => {
                     if (e == '?') inside = false;
                     if (inside) search += e;
                     if (e == 'is' || e == 'are') inside = true;
                 });
-            
+
                 // Makes the search and returns the first valid result of the three links on top
                 if (search != '') {
                     google(search.trim(), (err, response) => {
@@ -111,8 +111,8 @@ hissie.on('message', message => {
 
                     emb.setAuthor(displayName, message.author.avatarURL);
                     if (message.member.displayColor != 0) emb.setColor(message.member.displayColor);
-                    if (message.guild.emojis.find('name', emote.trim())) {
-                        emb.setImage(message.guild.emojis.find('name', emote.trim()).url.toString());
+                    if (message.guild.emojis.find(e => e.name === emote.trim())) {
+                        emb.setImage(message.guild.emojis.find(e => e.name === emote.trim()).url.toString());
                         message.channel.send(emb);
                         message.delete();
                     } else if (hissiemoteList[emote]) {
@@ -127,7 +127,7 @@ hissie.on('message', message => {
             case 'playAudio':
                 if (message.member.voiceChannel) {
                     let url;
-                
+
                     // If youtube link
                     if (message.content.match(/https:\/\/(www\.)?youtube\.com\/watch\?v/gmi)) {
                         url = message.content.replace(/.*play /gmi, '');
@@ -160,7 +160,7 @@ hissie.on('message', message => {
                     message.member.voiceChannel.leave();
                 } else message.channel.send('Can\'t stop playing if I\'m not 🤷‍');
                 break;
-            
+
             // Get user profile picture
             case 'getUserAvatar':
                 message.mentions.users.forEach(user => {
