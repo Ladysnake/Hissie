@@ -1,21 +1,27 @@
 [
 	{
 		"regex": ".*play .+",
-		"states": ["called"],
+		"states": [
+			"called"
+		],
 		"answers": [],
 		"action": "playAudio",
 		"result": "helped"
 	},
 	{
 		"regex": ".*stop.*",
-		"states": ["called"],
+		"states": [
+			"called"
+		],
 		"answers": [],
 		"action": "stopAudio",
 		"result": "helped"
 	},
 	{
 		"regex": ".*(what|who) +(is|are) +.*\\?",
-		"states": ["called"],
+		"states": [
+			"called"
+		],
 		"answers": [],
 		"action": "googleSearch",
 		"result": "helped"
@@ -28,56 +34,80 @@
 		"result": ""
 	},
 	{
-		"regex": ".*hissiemote.* +list +.*",
-		"states": ["called"],
-		"answers": ["https://ladysnake.github.io/hissiemotes.json"],
+		"regex": ".*hissiemote.* +list.*",
+		"states": [
+			"called"
+		],
+		"answers": [
+			"https://ladysnake.github.io/hissiemotes.json"
+		],
 		"action": "",
 		"result": "helped"
 	},
 	{
-		"regex": ".*(hello|hey|hi|sup|salutations).*",
-		"states": ["called"],
-		"answers": [
-			"Hello!", "Hey!", "Hi!"
-		],
-		"action": "",
-		"result": ""
-	},
-	{
 		"regex": ".*th(anks|x|ank *you).*",
-		"states": ["helped"],
+		"states": [
+			"helped"
+		],
 		"answers": [
-			"No problem!", "You're welcome!", "Glad I could help!"
+			"No problem!",
+			"You're welcome!",
+			"Glad I could help!"
 		],
 		"action": "",
 		"result": ""
 	},
 	{
 		"regex": ".*hug.*",
-		"states": ["called"],
-		"answers": ["https://imgur.com/1d6uU2C"],
+		"states": [
+			"called"
+		],
+		"answers": [
+			"https://imgur.com/1d6uU2C"
+		],
 		"action": "",
 		"result": "helped"
 	},
 	{
 		"regex": ".*get.*avatar.*",
-		"states": ["called"],
+		"states": [
+			"called"
+		],
 		"answers": [],
 		"action": "getUserAvatar",
 		"result": "helped"
 	},
 	{
 		"regex": ".*roll +.*die.*",
-		"states": ["called"],
+		"states": [
+			"called"
+		],
 		"answers": [],
 		"action": "rollDie",
 		"result": "helped"
 	},
 	{
 		"regex": ".*hissiemotes.*",
-		"states": ["called"],
-		"answers": ["https://ladysnake.github.io/hissiemotes.html"],
+		"states": [
+			"called"
+		],
+		"answers": [
+			"https://ladysnake.github.io/hissiemotes.html"
+		],
 		"action": "",
 		"result": "helped"
+	},
+	{
+		"regex": ".*(hello|hey|hi|sup|salutations).*",
+		"states": [
+			"called"
+		],
+		"answers": [
+			"Hello!",
+			"Hey!",
+			"Hi!"
+		],
+		"action": "",
+		"result": ""
 	}
 ]
